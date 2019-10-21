@@ -1,4 +1,4 @@
-# /bin/bash
+#! /bin/bash
 set -e
 
 /usr/bin/psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
@@ -8,26 +8,24 @@ set -e
   create extension IF NOT EXISTS postgis_topology;
 EOSQL
 
-# values from pgtune 5GB RAM + SDD + WebApplication
-echo <<-EOF
-fsync=off
-synchronous_commit=off
-full_page_writes=off
-wal_level=minimal 
-max_worker_processes=2
-max_parallel_workers_per_gather=1
-max_parallel_workers=2
-work_mem=60MB
-max_connections=100
-shared_buffers=1280MB
-effective_cache_size=3840MB
-max_wal_senders=0
-archive_mode=off
-maintenance_work_mem=100MB
-checkpoint_completion_target=0.7
-wal_buffers=16MB
-random_page_cost=1.1
-effective_io_concurrency=200
-min_wal_size=1GB
-max_wal_size=2GB
-EOF >> /var/lib/postgresql/data/postgresql.conf
+# values from pgtune 22B RAM + 1CPU + SDD + WebApplication
+
+echo fsync=off >> /var/lib/postgresql/data/postgresql.conf
+echo synchronous_commit=off >> /var/lib/postgresql/data/postgresql.conf
+echo full_page_writes=off >> /var/lib/postgresql/data/postgresql.conf
+echo wal_level=minimal >> /var/lib/postgresql/data/postgresql.conf
+echo work_mem=2MB >> /var/lib/postgresql/data/postgresql.conf
+echo max_connections=100 >> /var/lib/postgresql/data/postgresql.conf
+echo shared_buffers=512MB >> /var/lib/postgresql/data/postgresql.conf
+echo effective_cache_size=1500MB >> /var/lib/postgresql/data/postgresql.conf
+echo max_wal_senders=0 >> /var/lib/postgresql/data/postgresql.conf
+echo archive_mode=off >> /var/lib/postgresql/data/postgresql.conf
+echo maintenance_work_mem=128MB >> /var/lib/postgresql/data/postgresql.conf
+echo checkpoint_completion_target=0.7 >> /var/lib/postgresql/data/postgresql.conf
+echo wal_buffers=16MB >> /var/lib/postgresql/data/postgresql.conf
+echo random_page_cost=1.1 >> /var/lib/postgresql/data/postgresql.conf
+echo effective_io_concurrency=300 >> /var/lib/postgresql/data/postgresql.conf
+echo min_wal_size=1GB >> /var/lib/postgresql/data/postgresql.conf
+echo max_wal_size=2GB >> /var/lib/postgresql/data/postgresql.conf
+echo timezone=UTC >> /var/lib/postgresql/data/postgresql.conf
+
