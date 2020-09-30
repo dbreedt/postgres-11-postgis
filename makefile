@@ -1,6 +1,7 @@
 all: build
 
 build:
+	docker pull postgis/postgis:11-2.5-alpine
 	docker build -t pg11:latest .
 
 tag:
