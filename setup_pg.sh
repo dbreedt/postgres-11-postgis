@@ -22,6 +22,7 @@ echo maintenance_work_mem=128MB >> /var/lib/postgresql/data/postgresql.conf
 echo checkpoint_completion_target=0.9 >> /var/lib/postgresql/data/postgresql.conf
 echo random_page_cost=1.1 >> /var/lib/postgresql/data/postgresql.conf
 echo effective_io_concurrency=200 >> /var/lib/postgresql/data/postgresql.conf
+echo max_wal_senders=0 >> /var/lib/postgresql/data/postgresql.conf
 echo wal_level=minimal >> /var/lib/postgresql/data/postgresql.conf
 echo wal_buffers=16MB >> /var/lib/postgresql/data/postgresql.conf
 echo min_wal_size=32MB >> /var/lib/postgresql/data/postgresql.conf
