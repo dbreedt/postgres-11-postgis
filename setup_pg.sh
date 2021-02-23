@@ -8,7 +8,7 @@ set -e
   create extension IF NOT EXISTS postgis_topology;
 EOSQL
 
-# values from pgtune 1GB RAM + 2CPU + 20connections + SDD + Oltp
+# values from pgtune 2GB RAM + 2CPU + 20connections + SDD + Oltp
 
 echo fsync=off >> /var/lib/postgresql/data/postgresql.conf
 echo synchronous_commit=off >> /var/lib/postgresql/data/postgresql.conf
